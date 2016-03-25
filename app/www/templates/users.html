@@ -1,0 +1,41 @@
+<ion-view view-title="Lista de usuarios">
+  <ion-content>
+    <pre>
+      {{user}}
+    </pre>
+    <form ng-submit='save(user)'>
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">nome</span>
+          <input type="text" ng-model="user.nome">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">email</span>
+          <input type="text" ng-model="user.email">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Rua</span>
+          <input type="text" ng-model="user.endereco.rua">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">numero</span>
+          <input type="text" ng-model="user.endereco.numero">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">cep</span>
+          <input type="text" ng-model="user.endereco.cep">
+        </label>
+
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Salvar</button>
+          <button class="button button-block button-assertive" ng-click='getAllUsers()'>Carregar</button>
+        </label>
+      </div>
+    </form>
+
+  </ion-content>
+</ion-view>
