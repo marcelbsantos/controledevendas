@@ -1,3 +1,4 @@
+var db;
 angular.module('starter', [
   'ionic',
   'ngCordova',
@@ -5,9 +6,8 @@ angular.module('starter', [
   'users'
 ])
 
-.run(function($ionicPlatform, $cordovaSQLite) {
+.run(function($ionicPlatform, $cordovaSQLite, $rootScope) {
   $ionicPlatform.ready(function() {
-
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
@@ -18,15 +18,17 @@ angular.module('starter', [
       StatusBar.styleDefault();
     }
     if (window.cordova) {
-      db = $cordovaSQLite.openDB({
-        name: "vendas.db"
-      }); //device
+      $rootScope.db = window.sqlitePlugin.openDatabase({
+        name: 'vendas.db',
+        androidLockWorkaround: 1,
+        iosDatabaseLocation: 'default'
+      });
+      $cordovaSQLite.execute($rootScope.db, 'CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, cidade TEXT)');
     } else {
-      db = window.openDatabase("my.db", '1', 'my', 1024 * 1024 * 100); // browser
+      console.log('apenas para devices');
     }
   });
 })
-
 
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -38,8 +40,8 @@ angular.module('starter', [
       controller: 'AppCtrl'
     })
 
-  .state('app.user', {
-    url: '/user',
+  .state('app.users', {
+    url: '/users',
     views: {
       'menuContent': {
         templateUrl: 'templates/users.html',
@@ -48,33 +50,38 @@ angular.module('starter', [
     }
   })
 
-  .state('app.browse', {
-      url: '/browse',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/browse.html'
-        }
-      }
-    })
-    .state('app.playlists', {
-      url: '/playlists',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
-        }
-      }
-    })
-
-  .state('app.single', {
-    url: '/playlists/:playlistId',
+  .state('app.newUser', {
+    url: '/user/new',
     views: {
       'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
+        templateUrl: 'templates/user_new.html',
+        controller: 'UsersController'
+      }
+    }
+  })
+
+  .state('app.editUser', {
+    url: '/user/edit',
+    params: {
+      iten: null
+    },
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/user_edit.html',
+        controller: 'UsersController'
+      }
+    }
+  })
+
+  .state('app.showUser', {
+    url: '/user/show',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/user_show.html',
+        controller: 'UsersController'
       }
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/app/users');
 });
