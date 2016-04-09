@@ -1,15 +1,18 @@
 <ion-view view-title="Lista de usuarios">
-  <ion-nav-buttons side="right">
-    <button class="button" ui-sref="app.newUser">
-      <i class="ion-plus"></i>
-    </button>
-  </ion-nav-buttons>
-  <ion-content>
-    <ion-list>
-      <ion-item ng-repeat="user in users"
-      ui-sref="app.editUser({iten:user})">
-        {{user.name}}
-      </ion-item>
-    </ion-list>
-  </ion-content>
+    <ion-nav-buttons side="right">
+        <button class="button" ui-sref="app.newUser">
+            <i class="ion-plus"></i>
+        </button>
+    </ion-nav-buttons>
+    <ion-content>
+        <ion-list>
+            <ion-item ng-repeat="user in users">
+                {{user.name}}
+                <a class="ion-eye" style="float: right; font-size:26px; color:yellow;" ui-sref="app.showUser({iten:user})"><a>
+                <a class="ion-edit" style="float: right; font-size:26px; color:yellow;" ui-sref="app.editUser({iten:user})"><a>
+                <i class="ion-trash-b" style="float: right; font-size:20px; color:red;" ng-click='deleteUser(user.id)'></i>
+                <a class="ion-email" style="float: right; font-size:26px; " href="mailto:{{user.email}}?Subject=Controle%20de%20Vendas" target="_top"><a>
+            </ion-item>
+        </ion-list>
+    </ion-content>
 </ion-view>

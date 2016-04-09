@@ -75,6 +75,9 @@ angular.module('starter', [
 
   .state('app.showUser', {
     url: '/user/show',
+     params: {
+      iten: null
+    },
     views: {
       'menuContent': {
         templateUrl: 'templates/user_show.html',

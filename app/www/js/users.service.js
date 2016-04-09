@@ -18,7 +18,7 @@ function UsersFactory($cordovaSQLite, $rootScope, $q) {
   function save(user) {
     var query = "INSERT INTO users (name, email, cidade) VALUES (?,?,?)";
     $cordovaSQLite.execute($rootScope.db, query, [
-        user.nome,
+        user.name,
         user.email,
         user.cidade
       ])
@@ -53,7 +53,7 @@ function UsersFactory($cordovaSQLite, $rootScope, $q) {
 
   function updateUser(user) {
     var dfd = $q.defer();
-    var query = "UPDATE users SET name='" + user.nome + "',email='" + user.email + "',cidade='" + user.cidade + "' WHERE ID =" + user.id;
+    var query = "UPDATE users SET name='" + user.name + "',email='" + user.email + "',cidade='" + user.cidade + "' WHERE ID =" + user.id;
     $cordovaSQLite.execute($rootScope.db, query).then(
       function(response) {
         dfd.resolve(users);
