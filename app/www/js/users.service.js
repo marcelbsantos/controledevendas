@@ -12,10 +12,10 @@ function UsersFactory($cordovaSQLite, $rootScope, $q) {
 
   var users = [];
 
-
   return service;
 
   function save(user) {
+    var dfd = $q.defer();
     var query = "INSERT INTO users (name, email, cidade) VALUES (?,?,?)";
     $cordovaSQLite.execute($rootScope.db, query, [
         user.name,
@@ -24,12 +24,15 @@ function UsersFactory($cordovaSQLite, $rootScope, $q) {
       ])
       .then(
         function(reponse) {
+          dfd.resolve(reponse);
           console.log('id inserido', reponse);
         },
         function(error) {
+          dfd.reject(error);
           console.log(error);
         }
       )
+        return dfd.promise;
   }
 
   function getAll() {

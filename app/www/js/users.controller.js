@@ -1,6 +1,6 @@
 angular.module('users', [])
 
-.controller('UsersController', function($scope, $stateParams, $cordovaSQLite, UsersFactory, $cordovaLocalNotification) {
+.controller('UsersController', function($scope, $stateParams, $cordovaSQLite, UsersFactory, $cordovaLocalNotification, $state) {
     $scope.users = [];
     $scope.user = {
         name: '',
@@ -14,8 +14,12 @@ angular.module('users', [])
     }
 
     $scope.save = function(user) {
-        console.log(user);
-        UsersFactory.save(user);
+        UsersFactory.save(user).then(
+          function(response){
+            $scope.users = [];
+            $scope.loadUsers();
+          }
+        )
     }
 
     $scope.getAllUsers = function() {
@@ -27,7 +31,7 @@ angular.module('users', [])
             function(response) {
                 $scope.users = response;
             }
-        );
+        )
     }
 
     $scope.deleteUser = function(id) {
@@ -69,6 +73,5 @@ angular.module('users', [])
         $scope.loadUsers();
         console.log($scope.users);
     });
-
 
 });
