@@ -5,12 +5,14 @@ angular.module('users', [])
     $scope.user = {
         name: '',
         email: '',
+        fone: '',
         cidade: '',
-        endereco: {
-            rua: '',
-            cep: null,
-            numero: null
-        }
+        estado: '',
+        complemento: '',
+        rua: '',
+        cep: '',
+        numero: '',
+        bairro: ''
     }
 
     $scope.save = function(user) {

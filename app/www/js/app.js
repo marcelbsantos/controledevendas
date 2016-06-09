@@ -3,7 +3,8 @@ angular.module('starter', [
   'ionic',
   'ngCordova',
   'starter.controllers',
-  'users'
+  'users',
+  'ui.utils.masks'
 ])
 
 .run(function($ionicPlatform, $cordovaSQLite, $rootScope) {
@@ -23,7 +24,8 @@ angular.module('starter', [
         androidLockWorkaround: 1,
         iosDatabaseLocation: 'default'
       });
-      $cordovaSQLite.execute($rootScope.db, 'CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, cidade TEXT)');
+      $cordovaSQLite.execute($rootScope.db, 'CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, ' +
+        'email TEXT, fone TEXT, rua TEXT, bairro TEXT, numero INTEGER, cep TEXT, cidade TEXT, estado TEXT, complemento TEXT);');
     } else {
       console.log('apenas para devices');
     }
