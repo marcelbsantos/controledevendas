@@ -18,8 +18,9 @@ angular.module('users', [])
     $scope.save = function(user) {
         UsersFactory.save(user).then(
           function(response){
-            $scope.users = [];
-            $scope.loadUsers();
+            $scope.users.push(user);
+
+            $state.go('app.users', {}, {reload: true});
           }
         )
     }
@@ -50,6 +51,8 @@ angular.module('users', [])
             function(response) {
                 $scope.users = [];
                 $scope.loadUsers();
+
+                $state.go('app.users');
             }
         )
     }

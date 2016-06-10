@@ -42,6 +42,12 @@ angular.module('starter', [
       controller: 'AppCtrl'
     })
 
+    .state('notificar', {
+      url: '/notificar',
+      templateUrl: 'templates/notificar.html',
+      controller: 'AppCtrl'
+    })
+
   .state('app.users', {
     url: '/users',
     views: {
