@@ -1,16 +1,15 @@
-<ion-view view-title="NotificarUsuario">
-  <ion-content ng-init='load()'>
-    <form ng-disabled="true">
+<ion-view view-title="Notificar Usuário">
+  <ion-content>
+    <form name="userForm">
       <div ng-include="'templates/_form_notificar.html'"></div>
-      <div>
       <label class="item">
         <button class="button button-block button-positive" ui-sref='app.users'>voltar</button>
       </label>
-        <label class="item">
+
+      <label class="item">
           <button class="button button-block button-positive" ng-click="notification(dadosNotificacao)"
                   ui-sref='app.users'>Notificar</button>
-        </label>
-      </div>
+      </label>
     </form>
   </ion-content>
 </ion-view>
